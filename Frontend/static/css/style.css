@@ -1,0 +1,313 @@
+/* Modern Root Design Tokens */
+:root {
+	--bg-primary: #121214;
+	--bg-surface: #1e1e24;
+	--text-main: #f3f4f6;
+	--text-muted: #9ca3af;
+	--accent: #00d2ff;
+	--accent-hover: #00b4dc;
+	--border-color: #374151;
+	--radius: 12px;
+	--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Body - Fixed Viewport Setup */
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100vh;      /* Force strictly 100% viewport height */
+	overflow: hidden;   /* Stops the entire browser window from scrolling */
+	background-color: var(--bg-primary);
+	color: var(--text-main);
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	
+	/* Layout Grid */
+	display: grid;
+	grid-template-rows: auto auto 1fr; /* Header, Search, then dynamic remainder height */
+	justify-items: center;
+	box-sizing: border-box;
+}
+
+/* Layout Components */
+.header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	padding: 15px 20px 5px; /* Compact padding */
+	width: 100%;
+	max-width: 1200px;
+	box-sizing: border-box;
+}
+
+.search {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	padding: 5px 0;
+	margin-bottom: 5px; /* Tightened margin */
+	width: 100%;
+}
+
+/* Main Display Container - Takes remaining viewport space */
+.output {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 90%;
+	max-width: 1200px;
+	height: calc(100% - 20px); /* Fills up 100% of grid slot space minus margin spacing */
+	background: var(--bg-surface);
+	border-radius: var(--radius);
+	border: 1px solid var(--border-color);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+	margin-bottom: 20px;
+	overflow: hidden; /* Constrains elements to frame boundaries */
+	box-sizing: border-box;
+}
+
+/* Content Panels */
+#left {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 30%;
+	height: 100%;
+	border-right: 1px solid var(--border-color);
+	overflow-y: auto;
+}
+
+/* Scrolling Right Frame Panel - The ONLY element allowed to scroll */
+#right {
+	display: none;
+	width: 70%;
+	height: 100%; 
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+	padding: 20px;
+	box-sizing: border-box;
+	transition: var(--transition);
+	overflow-y: auto;   /* Scrollbar triggers exclusively here if layout gets crowded */
+	overflow-x: hidden; 
+}
+
+/* Sleek Theme-Matching Custom Scrollbars for #right */
+#right::-webkit-scrollbar {
+	width: 8px;
+}
+
+#left::-webkit-scrollbar {
+	width: 8px;
+}
+
+#right::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+#left::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+#right::-webkit-scrollbar-thumb {
+	background: var(--border-color);
+	border-radius: 4px;
+}
+
+#left::-webkit-scrollbar-thumb {
+	background: var(--border-color);
+	border-radius: 4px;
+}
+
+#right::-webkit-scrollbar-thumb:hover {
+	background: var(--accent);
+}
+
+#left::-webkit-scrollbar-thumb:hover {
+	background: var(--accent);
+}
+
+/* Loader Layout Elements */
+#loader {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	gap: 15px;
+}
+
+.loading {
+	width: 40px;
+	height: 40px;
+	border: 4px solid rgba(255, 255, 255, 0.1);
+	border-top: 4px solid var(--accent);
+	border-left: 4px solid var(--accent);
+	border-radius: 50%;
+	animation: spinner 0.8s linear infinite;
+}
+
+/* Dynamic Prediction Output View */
+#predicted-output {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.original {
+	width: 35%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.predicted {
+	width: 70%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Input Field Styling */
+#search-inp {
+    background-color: #1e1e24;       /* Matches your --bg-surface container */
+    color: #f3f4f6;                  /* Crisp light text */
+    font-size: 14px;
+    font-family: inherit;
+    
+    /* Structure & Sizing */
+    padding: 10px 16px;
+    width: 280px;                    /* Clean, usable width */
+    height: 45px;                    /* Matches button height perfectly */
+    border: 1px solid #374151;       /* Subtle dark border */
+    border-radius: 6px;              /* Matches button corner radius */
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Input Placeholder Text Styling */
+#search-inp::placeholder {
+    color: #6b7280;                  /* Soft muted gray text */
+    font-weight: 400;
+}
+
+/* Active/Focus State - Lights up white when clicked */
+#search-inp:focus {
+    border-color: #ffffff;           /* Border changes to pure white */
+    background-color: #121214;       /* Darkens slightly for depth */
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1); /* Soft white outer glow */
+}
+
+#search-btn {
+    background-color: #ffffff;      /* Clean crisp white background */
+    color: #121214;                 /* Deep dark text to match your body background */
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    
+    /* Structure & Layout */
+    padding: 10px 24px;
+    border: 1px solid #ffffff;      /* Hidden matching border */
+    border-radius: 6px;             /* Slightly sharper corners for a premium feel */
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Smooth Interactive Animations */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover State: Sleek Inverse Transition */
+#search-btn:hover {
+    background-color: #1e1e24;      /* Swaps to your surface color */
+	color: #ffffff;                 /* Text turns white */
+    border-color: #4b5563;          /* Subtle gray border shows up */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);    /* Micro-lift feedback */
+}
+
+/* Click/Active State: Physical Press Feedback */
+#search-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Spinner Keyframe Animation */
+@keyframes spinner {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+/* CSS */
+.button-45 {
+  align-items: center;
+  background-color: #FFE7E7;
+  background-position: 0 0;
+  border: 1px solid #FEE0E0;
+  border-radius: 11px;
+  box-sizing: border-box;
+  color: #D33A2C;
+  cursor: pointer;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 33.4929px;
+  list-style: outside url(https://www.smashingmagazine.com/images/bullet.svg) none;
+  padding: 2px 12px;
+  text-align: left;
+  text-decoration: none;
+  text-shadow: none;
+  text-underline-offset: 1px;
+  transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  word-break: break-word;
+}
+
+.header-greentings {
+	width: 75%;
+	display: flex;
+	justify-content: right;
+}
+
+.header-btn {
+	width: 25%;
+	display: flex;
+	justify-content: right;
+}
+
+.button-45:active,
+.button-45:hover,
+.button-45:focus {
+  outline: 0;
+}
+
+
+.button-45:active {
+  background-color: #D33A2C;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+  color: #FFFFFF;
+}
+
+.button-45:hover {
+  background-color: #FFE3E3;
+  border-color: #FAA4A4;
+}
+
+.button-45:active:hover,
+.button-45:focus:hover,
+.button-45:focus {
+  background-color: #D33A2C;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+  color: #FFFFFF;
+}
+
+#org-user-div p {
+	margin-bottom: 0px;
+}

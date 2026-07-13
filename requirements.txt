@@ -1,3 +1,8 @@
 pandas
 # sentence-transformers
 # faiss-cpu
+
+
+#frontend library
+flask
+scrapfly-sdk

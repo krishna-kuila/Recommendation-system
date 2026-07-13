@@ -1,0 +1,86 @@
+<!Doctype html>
+<html>
+	<head>
+		<title>Recommender Page</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}"
+	</head>
+	<body>
+
+		<div id="formModal" class="modal-overlay">
+			<!-- The Main Form Window Container -->
+			<div class="modal-content">
+				<button id="closeFormBtn" class="close-btn">&times;</button>
+				
+				<form id="contactForm" class="theme-form">
+					<h2 class="form-title">Enter User Details</h2>
+					
+					<div class="input-group">
+						<label class="input-label">User Name</label>
+						<input type="text" id="name_" class="form-input" placeholder="Enter Your Name...." required>
+					</div>
+
+					<div class="input-group">
+						<label class="input-label">Bio</label>
+						<textarea id="bio_" class="form-input form-textarea" placeholder="Write about you or your passion..." required></textarea>
+					</div>
+
+					<button type="submit" class="submit-btn">Submit</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="header">
+			<div class="header-greentings">
+				<h1>Welcome To Our Recommender App</h1>
+			</div>
+			<div class="header-btn">
+				<button onclick="clearAll()" class="button-45" id="clear-btn" style="cursor: pointer; height: 30px;">Clear All</button>
+			</div>
+		</div>
+		<div class="search">
+			<div style="margin-right: 10px;">
+				<button id="openFormBtn" class="action-btn">New User ?</button>
+			</div>
+			<div style="margin-right: 50px;">
+				<input placeholder="Enter User X(Twitter) Link"
+				style="
+					height: 40px;
+					width: 250px;
+					font-size: 15px;
+					"
+					id="search-inp"
+				/>
+				<button style="
+					height: 35px;
+					cursor: pointer
+				" onclick="search_user(event)" id="search-btn">
+				<img src="{{ url_for('static', filename='search_logo.png') }}" height="15">
+			</button>
+			</div>
+		</div>
+		<div id="predicted-output">
+			<div class="original">
+				<h2>User</h2>
+			</div>
+			<div class="predicted">
+				<h2>Suggested User</h2>
+			</div>
+		</div>
+		<div class="output">
+			<div id="messages" style="
+				font-size: 25px; color: red">
+				<!-- Display Message -->
+			</div>
+			<div id="loader">
+				<div class="loading"></div>
+				<p>loading...</p>
+			</div>
+			<div id="left">left</div>
+			<div id="right">right</div>
+		</div>
+	</body>
+	<script src="{{ url_for('static', filename='scripts/form.js') }}"></script>
+
+	<script src="{{ url_for('static', filename='scripts/main_scripts.js') }}"></script>
+</html>

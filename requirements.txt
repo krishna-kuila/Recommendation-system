@@ -1,6 +1,6 @@
 pandas
-# sentence-transformers
-# faiss-cpu
+sentence-transformers
+faiss-cpu
 
 
 #frontend library

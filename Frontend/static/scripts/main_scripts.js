@@ -24,6 +24,7 @@ async function search_user() {
         message.innerText = "Not An Valid Input"
         search_btn.disabled = false;
         clear_btn.disabled = false;
+        form_btn.disabled = false;
         return;
     }
 
@@ -38,15 +39,21 @@ async function search_user() {
         });
         if(response.ok) {
             const user = await response.json();
-            left.style.display = "flex";
-            right.style.display = "flex";
-            label_output.style.display = "flex";
-            search_btn.disabled = false;
-            clear_btn.disabled = false;
-            display_user(user);
+            if(!user) {
+                message.style.display = "flex";
+                message.innerText = "User Not Found...";
+            } else {
+                left.style.display = "flex";
+                right.style.display = "flex";
+                label_output.style.display = "flex";
+                search_btn.disabled = false;
+                clear_btn.disabled = false;
+                display_user(user);
+            }
         }
     } catch(e) {
         message.style.display = "flex";
+        message.innerText = "Internal Server Error...";
         label_output.style.display = "none";
         left.style.display = "none";
         right.style.display = "none";
@@ -72,10 +79,18 @@ function display_user(user) {
             justify-content: center;
             align-items: center;
             padding-left: 10px;
-        " id="org-user-div">
+        " 
+            id="org-user-div"
+
+            data-name="${user.user.name}"
+            data-bio="${user.user.bio}"
+            data-comments="${user.user.comments}"
+            data-handle="${user.user.handle}"
+            data-src="static/user.png"
+            onclick="showDetails(this)"
+        >
             <img src="static/user.png" width="80" height="80">
             <h3>${user.user.name}</h3>
-            <p>${user.user.handle}</p>
             <p>Bio : ${user.user.bio}</p> 
         </div>
     `
@@ -100,7 +115,14 @@ function show_limit(user) {
 
     for(let i=0; i<4; i++) {
         right.innerHTML += `
-            <div class="profile-card">
+            <div class="profile-card"
+                data-name="${user.users[i].name}"
+                data-id="${user.users[i].id}"
+                data-comments="${user.users[i].comments}"
+                data-bio="${user.users[i].bio}"
+                data-src="static/account.png"
+                onclick="showDetails(this)"
+            >
                 <img src="static/account.png" class="profile-avatar" alt="Profile">
                 <h3 class="profile-name">${user.users[i].id}</h3>
                 <p class="profile-handle">@${user.users[i].name}</p>

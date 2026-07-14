@@ -7,16 +7,15 @@ def create_vector_store(output_index_path, output_csv_path):
     # 1. Load the CSV file
     print("Loading CSV file...")
     # pandas will automatically handle the quoted strings and commas in your data
-    df = pd.read_csv('dataset.csv')
+    df = pd.read_csv('../dataset.csv')
     
     # 2. Clean and handle missing values for the columns we want to merge
     # # We use fillna('') just in case some rows are missing a name or text
-    # df['name'] = df['name'].fillna('')
-    # df['text'] = df['text'].fillna('')
+    df['description'] = df['description'].fillna('')
     
     # 3. Merge the 'description' and 'text' columns
     print("Merging columns...")
-    df['combined_text'] = "Bio: " + df['description'] + " | Post: " + df['text']
+    df['combined_text'] = "Bio: " + df['description'].astype(str) + " | Post: " + df['text'].astype(str)
     
     # Extract the combined text as a list for the transformer
     text_list = df['combined_text'].tolist()
@@ -27,14 +26,21 @@ def create_vector_store(output_index_path, output_csv_path):
     
     # 5. Convert text to vector embeddings
     print("Generating embeddings (this may take a moment)...")
-    embeddings = model.encode(text_list, show_progress_bar=True)
+    embeddings = model.encode(
+        text_list,
+        batch_size=128, #for speed up processing
+        show_progress_bar=True
+    )
     
     # Convert to float32 numpy array, which is strictly required by FAISS
     embeddings = np.array(embeddings).astype('float32')
-    
-    # 6. Initialize FAISS index
+
+    # Normalize the vectors to unit length
+    faiss.normalize_L2(embeddings)
+
+    # 6. Initialize FAISS index using Inner Product(cosine similarity)
     dimension = embeddings.shape[1]  # 384 dimensions for all-MiniLM-L6-v2
-    index = faiss.IndexFlatL2(dimension)
+    index = faiss.IndexFlatIP(dimension)
     
     # 7. Add embeddings to the vector store
     print("Adding embeddings to FAISS index...")

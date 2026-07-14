@@ -11,13 +11,14 @@ def home():
 def get_user():
 	if request.method == 'POST':
 		query = request.get_json()
-		user = extract_x_profile_data(query) #comment out this link for actual api call
-		# user = {
-		# 	"name" : "arpon kola",
-		# 	"handle" : "@arpon",
-		# 	"bio" : "SaaS. Depression. Growth. ⚡ Founder with Depression 🖤 SaaS | Healing | Building 🚀 Depressed but Building 💻 SaaS Over Sadness ⚡ Code. Build. Heal",
-		# 	"location" : "howrah"
-		# } #for demo purpose comment this out
+		url = "https://x.com/"+query
+		# user = extract_x_profile_data(url) #comment out this link for actual api call
+		user = {
+			"name" : "arpon kola",
+			"handle" : "@arpon",
+			"bio" : "SaaS. Depression. Growth. ⚡ Founder with Depression 🖤 SaaS | Healing | Building 🚀 Depressed but Building 💻 SaaS Over Sadness ⚡ Code. Build. Heal",
+			"location" : "howrah"
+		} #for demo purpose comment this out
 		if not user:
 			return jsonify({
 				"Message" : "User Not Found"

@@ -2,15 +2,15 @@
 :root {
     --theme-blue: #4a90e2;    /* Exact hex color value from your data blocks */
     --theme-dark: #357abd;    /* Deep hover shade matching your layout palette */
-    --theme-white: #ffffff;
-    --theme-text: #333333;
+    --theme-black: #333333;
+    --theme-text: #ffffff;
 }
 
 /* --- Trigger Button --- */
 .action-btn {
     padding: 12px 28px;
     background-color: var(--theme-blue);
-    color: var(--theme-white);
+    color: var(--theme-text);
     border: none;
     border-radius: 8px; /* Matched your exact card radius */
     font-size: 14px;
@@ -55,7 +55,7 @@
 
 /* --- The Actual Form Box Component --- */
 .modal-content {
-    background-color: var(--theme-white);
+    background-color: var(--theme-black);
     padding: 40px;
     width: 100%;
     max-width: 420px;
@@ -101,13 +101,14 @@
     width: 92%;
     height: 44px;
     padding: 0 14px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid #807e7e;
     border-radius: 6px;
-    background-color: #fafafa;
+    background-color: #313030;
     font-size: 14px;
     outline: none;
     font-family: inherit;
     transition: border-color 0.2s, background-color 0.2s;
+    color: white;
 }
 
 .form-textarea {
@@ -118,8 +119,8 @@
 
 /* Blue Focus highlights matched directly to style context structures */
 .form-input:focus {
-    border-color: var(--theme-blue);
-    background-color: var(--theme-white);
+    border-color: var(--theme-text);
+    background-color: var(--theme-black);
 }
 
 /* --- Blue Submit Button --- */
@@ -127,7 +128,7 @@
     width: 100%;
     height: 46px;
     background-color: var(--theme-blue);
-    color: var(--theme-white);
+    color: var(--theme-text);
     border: none;
     border-radius: 6px;
     font-size: 14px;

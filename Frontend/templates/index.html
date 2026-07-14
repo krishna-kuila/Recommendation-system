@@ -3,7 +3,8 @@
 	<head>
 		<title>Recommender Page</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}"
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/details_show.css') }}">
 	</head>
 	<body>
 
@@ -43,7 +44,7 @@
 				<button id="openFormBtn" class="action-btn">New User</button>
 			</div>
 			<div style="margin-right: 50px;">
-				<input placeholder="Enter User X(Twitter) Name"
+				<input placeholder="Enter User X(Twitter) Handle Name"
 				style="
 					height: 40px;
 					width: 250px;
@@ -79,8 +80,48 @@
 			<div id="left">left</div>
 			<div id="right">right</div>
 		</div>
-	</body>
-	<script src="{{ url_for('static', filename='scripts/form.js') }}"></script>
+		
+		<!-- Card Show Modal -->
+		<div id="profileModal" class="modal-overlay2" onclick="closeProfile(event)">
+			<div class="modal-content2">
+				<span class="close-btn2" onclick="document.getElementById('profileModal').style.display='none'">&times;</span>
+				<div style="
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					padding: 0px;
+					margin: 0px;
+				">
+					<img width="100" height="100" style="
+						border: 4px solid #ffffff;
+						border-radius: 50%;
+						background-color: #ffffff;
+						box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+					" id="modalImage">
+					<p style="margin-top: 10px;"><strong><span id="modalName"></span></strong></p>
+					<p><spand id="modalHandle" style="color: rgb(151, 149, 149)"></spand></p>
+					<p><spand id="modalId" style="color: rgb(196, 195, 195)"></spand></p>
+					<p><span id="modalBio" style="font-size: 14px;"></span></p>
+				</div>
+				<div class="comments-container">
+					<p style="
+						margin-bottom: 5px;
+						font-weight:bold;
+					">Comments</p>
+					<div>
+						<span id="modalComments" style="
+							color: rgb(196, 195, 195);
+							font-size: 14px;
+						"></span>
+					</div>
+				</div>
+			</div>
+		</div>
 
+	</body>
+
+	<script src="{{ url_for('static', filename='scripts/form.js') }}"></script>
 	<script src="{{ url_for('static', filename='scripts/main_scripts.js') }}"></script>
+	<script src="{{ url_for('static', filename='scripts/details.js') }}"></script>
+
 </html>

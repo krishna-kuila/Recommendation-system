@@ -30,7 +30,6 @@ print("Loading model...")
 model = SentenceTransformer('all-MiniLM-L6-v2')
 print("--- Startup Complete. System Ready for Queries ---\n")
 
-
 app = Flask(__name__)
 
 def clean(obj):

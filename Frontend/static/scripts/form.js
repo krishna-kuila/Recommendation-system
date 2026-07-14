@@ -85,9 +85,15 @@ function display_new_user(user, new_user) {
             align-items: center;
             width: 100%;
             padding-left: 10px;
-        " id="org-user-div">
+        "    
+            id="org-user-div"
+            data-name="${new_user.name}"
+            data-bio="${new_user.bio}"
+            data-src="static/user.png"
+            onclick="showDetails(this)"
+        >
             <img src="static/user.png" width="80" height="80">
-            <h3>${new_user.name}</h3>
+            <h3>@${new_user.name}</h3>
             <p>Bio : ${new_user.bio}</p>
         </div>
     `
@@ -97,7 +103,14 @@ function display_new_user(user, new_user) {
 
     for(let i=0; i<4; i++) {
         right.innerHTML += `
-            <div class="profile-card">
+            <div class="profile-card" 
+                data-name="${user.users[i].name}"
+                data-id="${user.users[i].id}"
+                data-comments="${user.users[i].comments}"
+                data-bio="${user.users[i].bio}"
+                data-src="static/account.png"
+                onclick="showDetails(this)"
+            >
                 <img src="static/account.png" class="profile-avatar" alt="Profile">
                 <h3 class="profile-name">${user.users[i].id}</h3>
                 <p class="profile-handle">@${user.users[i].name}</p>

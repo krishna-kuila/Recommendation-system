@@ -8,8 +8,12 @@
 
 ## Problems faces
 
-### Granulartiy mismatch problem
-one user may have many comments/similar comments , for recommendation same user occur many times as generate embedding have the same context.
+### Granulartiy mismatch problem:
+    one user may have many comments/similar comments , for recommendation same user occur many times as generate embedding have the same context.
+
+### Recommendation in billion of rows(real world):
+    In real world dataset have billions of rows matching each with embeddings can be huge loss.
+    solution - clustering based
 
 
 

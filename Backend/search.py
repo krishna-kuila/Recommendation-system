@@ -1,6 +1,7 @@
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import faiss
+from typing import List, Dict
 
 
 # INITIALIZATION STEP (Happens ONLY ONCE when script starts up)
@@ -22,6 +23,7 @@ df = pd.read_csv(METADATA_CSV_FILE)
 unit_ids = df['_unit_id'].tolist()
 names = df['name'].tolist()
 description = df['description'].tolist()
+comments = df['text']
 df_len = len(df)
 
 print("Loading model...")
@@ -29,7 +31,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 print("--- Startup Complete. System Ready for Queries ---\n")
 
 
-def search_vector_store(query, top_k):
+def search_vector_store(query, top_k, model, index, unit_ids, names, description, comments, df_len)->List[Dict]:
     
     # 1. Convert the user's text query into a vector embedding
     query_embedding = model.encode([query]).astype('float32') #must be float32
@@ -41,15 +43,24 @@ def search_vector_store(query, top_k):
     # 5. Display the results by mapping indices back to the dataframe
     print(f"Searching for: '{query}'\n")
     print("-" * 50)
+    res = []
     for i, idx in enumerate(indices[0]):
-        if idx < len(df): # Safety check to ensure index exists in dataframe
-            
+        if idx < df_len: # Safety check to ensure index exists in dataframe
+            res.append({
+                    "id" : unit_ids[idx],
+                    "name" : names[idx],
+                    "bio" : description[idx],
+                    "comments" : comments[idx],
+                    "score" : f"{distances[0][i]:.4f}"
+                }
+            )
             # Distance: Lower is better (closer match) in IndexFlatL2
-            print(f"Result #{i+1} | Distance Score: {distances[0][i]:.4f}")
-            print(f"Unit ID: {unit_ids[idx]}")
-            print(f"Name: {names[idx]}")
-            print(f"Bio: {description[idx]}")
-            print("-" * 50)
+            # print(f"Result #{i+1} | Distance Score: {distances[0][i]:.4f}")
+            # print(f"Unit ID: {unit_ids[idx]}")
+            # print(f"Name: {names[idx]}")
+            # print(f"Bio: {description[idx]}")
+            # print("-" * 50)
+    return res
 
 # --- Execution ---
 if __name__ == "__main__":
@@ -59,5 +70,12 @@ if __name__ == "__main__":
     
     search_vector_store(
         query=user_query,
-        top_k=10  # Change this number to get more or fewer results
+        top_k=10,
+        model=model,
+        index=index,
+        unit_ids=unit_ids,
+        names=names,
+        description=description,
+        comments=comments,
+        df_len=df_len
     )

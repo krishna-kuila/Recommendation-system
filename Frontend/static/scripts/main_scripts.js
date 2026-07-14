@@ -7,7 +7,7 @@ const clear_btn = document.getElementById('clear-btn');
 const search_btn = document.getElementById('search-btn');
 const form_btn = document.getElementById('openFormBtn');
 
-async function search_user(event) {
+async function search_user() {
     message.style.display = "none";
     const search_box = document.getElementById('search-inp');
     loader.style.display = "none"
@@ -37,7 +37,7 @@ async function search_user(event) {
             body: JSON.stringify(search_data)
         });
         if(response.ok) {
-            user = await response.json();
+            const user = await response.json();
             left.style.display = "flex";
             right.style.display = "flex";
             label_output.style.display = "flex";
@@ -48,12 +48,12 @@ async function search_user(event) {
     } catch(e) {
         message.style.display = "flex";
         label_output.style.display = "none";
-        message.innerText = user.Message;
         left.style.display = "none";
         right.style.display = "none";
         search_btn.disabled = false;
         clear_btn.disabled = false;
         form_btn.disabled = false;
+        console.error(e);
     } finally {
         loader.style.display = "none";
         search_btn.disabled = false;
@@ -102,8 +102,8 @@ function show_limit(user) {
         right.innerHTML += `
             <div class="profile-card">
                 <img src="static/account.png" class="profile-avatar" alt="Profile">
-                <h3 class="profile-name">${user.users[i].name}</h3>
-                <p class="profile-handle">${user.users[i].handle}</p>
+                <h3 class="profile-name">${user.users[i].id}</h3>
+                <p class="profile-handle">@${user.users[i].name}</p>
                 <div class="profile-score">
                     Score: <span class="score-num">${user.users[i].score}</span>
                 </div>

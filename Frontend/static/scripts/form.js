@@ -61,7 +61,7 @@ form.addEventListener('submit', async function(e) {
             label_output.style.display = "none";
             left.style.display = "none";
             label_output.style.display = "none";
-            console.error('NETWORK ERROR');
+            console.error(e);
         } finally {
             loader.style.display = "none";
             search_btn.disabled = false;
@@ -99,8 +99,8 @@ function display_new_user(user, new_user) {
         right.innerHTML += `
             <div class="profile-card">
                 <img src="static/account.png" class="profile-avatar" alt="Profile">
-                <h3 class="profile-name">${user.users[i].name}</h3>
-                <p class="profile-handle">${user.users[i].handle}</p>
+                <h3 class="profile-name">${user.users[i].id}</h3>
+                <p class="profile-handle">@${user.users[i].name}</p>
                 <div class="profile-score">
                     Score: <span class="score-num">${user.users[i].score}</span>
                 </div>

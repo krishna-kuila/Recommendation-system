@@ -79,6 +79,7 @@ function display_user(user) {
             justify-content: center;
             align-items: center;
             padding-left: 10px;
+            cursor: pointer;
         " 
             id="org-user-div"
 

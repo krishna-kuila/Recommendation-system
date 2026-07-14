@@ -23,7 +23,7 @@ function showDetails(element) {
     document.getElementById('modalHandle').innerText = handle;
     document.getElementById('modalId').innerText = id;
     document.getElementById('modalBio').innerText = bio;
-    document.getElementById('modalComments').innerText = comments.substring(0, 481)+'.';
+    document.getElementById('modalComments').innerText = comments.substring(0, 300)+'...';
 
     document.getElementById('profileModal').style.display = "flex";
 }

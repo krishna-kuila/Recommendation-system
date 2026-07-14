@@ -85,6 +85,7 @@ function display_new_user(user, new_user) {
             align-items: center;
             width: 100%;
             padding-left: 10px;
+            cursor: pointer;
         "    
             id="org-user-div"
             data-name="${new_user.name}"

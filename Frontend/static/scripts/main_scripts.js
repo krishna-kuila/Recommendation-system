@@ -65,18 +65,17 @@ async function search_user(event) {
 function display_user(user) {
     left.innerHTML = `
         <div style="
-            border: 1px solid black;
-            height: 100%;
+            width: 90%;
+            height: 90%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 100%;
             padding-left: 10px;
         " id="org-user-div">
             <img src="static/user.png" width="80" height="80">
-            <p>User : ${user.user.name}</p>
-            <p>Handle : ${user.user.handle}</p>
+            <h3>${user.user.name}</h3>
+            <p>${user.user.handle}</p>
             <p>Bio : ${user.user.bio}</p> 
         </div>
     `
@@ -101,19 +100,13 @@ function show_limit(user) {
 
     for(let i=0; i<4; i++) {
         right.innerHTML += `
-            <div style="
-                background-color: #4a90e2;
-                padding: 30px;
-                border-radius: 8px;
-                text-align: center;
-                font-family: sans-serif;
-                max-width: 300px;
-                max-height: 300px;
-            ">
-                <img src="static/account.png" width="50", height="50">
-                <p>user : ${user.users[i].name}</p>
-                <p>handle : ${user.users[i].handle}</p>
-                <p>Score : <span style="background-color:green; font-weight: bold">${user.users[i].score}</span></p>
+            <div class="profile-card">
+                <img src="static/account.png" class="profile-avatar" alt="Profile">
+                <h3 class="profile-name">${user.users[i].name}</h3>
+                <p class="profile-handle">${user.users[i].handle}</p>
+                <div class="profile-score">
+                    Score: <span class="score-num">${user.users[i].score}</span>
+                </div>
             </div>
         `
     }

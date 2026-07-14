@@ -87,7 +87,7 @@ function display_new_user(user, new_user) {
             padding-left: 10px;
         " id="org-user-div">
             <img src="static/user.png" width="80" height="80">
-            <p>User : ${new_user.name}</p>
+            <h3>${new_user.name}</h3>
             <p>Bio : ${new_user.bio}</p>
         </div>
     `
@@ -97,19 +97,13 @@ function display_new_user(user, new_user) {
 
     for(let i=0; i<4; i++) {
         right.innerHTML += `
-            <div style="
-                background-color: #4a90e2;
-                padding: 30px;
-                border-radius: 8px;
-                text-align: center;
-                font-family: sans-serif;
-                max-width: 300px;
-                max-height: 300px;
-            ">
-                <img src="static/account.png" width="50", height="50">
-                <p>user : ${user.users[i].name}</p>
-                <p>handle : ${user.users[i].handle}</p>
-                <p>Score : <span style="background-color:green; font-weight: bold">${user.users[i].score}</span></p>
+            <div class="profile-card">
+                <img src="static/account.png" class="profile-avatar" alt="Profile">
+                <h3 class="profile-name">${user.users[i].name}</h3>
+                <p class="profile-handle">${user.users[i].handle}</p>
+                <div class="profile-score">
+                    Score: <span class="score-num">${user.users[i].score}</span>
+                </div>
             </div>
         `
     }

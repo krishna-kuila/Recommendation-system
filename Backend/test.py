@@ -7,7 +7,7 @@ def create_vector_store(output_index_path, output_csv_path):
     # 1. Load the CSV file
     print("Loading CSV file...")
     # pandas will automatically handle the quoted strings and commas in your data
-    df = pd.read_csv(r'C:\Users\HI\Desktop\Recommendation-system\dataset.csv')
+    df = pd.read_csv('dataset.csv')
     
     # 2. Clean and handle missing values for the columns we want to merge
     # # We use fillna('') just in case some rows are missing a name or text

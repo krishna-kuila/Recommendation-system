@@ -2,7 +2,7 @@ from scrapfly import ScrapeConfig, ScrapflyClient, ScrapeApiResponse
 import os
 
 # Initialize with your active Scrapfly API Key
-SCRAPFLY_API_KEY = 'scp-live-608acb9d9e6643d09368377b70d03743'
+SCRAPFLY_API_KEY = os.environ.get('API_KEY', '')
 client = ScrapflyClient(key=SCRAPFLY_API_KEY)
 
 def extract_x_profile_data(profile_url: str):
